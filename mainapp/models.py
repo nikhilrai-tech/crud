@@ -17,6 +17,3 @@ class Student(models.Model):
     name=models.CharField(max_length=50)
     roll=models.IntegerField(null=True)
     class_name=models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name,self.roll,self.class_name

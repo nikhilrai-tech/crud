@@ -15,51 +15,55 @@
         <div class="row">
             <div class="col-sm-5">
              <h1 class="alert alert-success text-center">Student Data Submit</h1>
-             {%for i in form%}
-            {{i.label_tag}} {{i}}<br> {{i.errors}}
-            {%endfor%}
-            <div class="container text-center">
-                <button class="alert alert-success" style="width: 50%;">Submit</button>
-                <!-- <a href="" class="alert alert-success" style="width: 150px;">Submit</a> -->
-            </div>
+             <form action="" method="post">
+              {%csrf_token%}
+              {%for i in form%}
+              {{i.label_tag}} {{i}}<br> {{i.errors}}
+              {%endfor%}
+              <div class="container text-center">
+                  <button class="alert alert-success" style="width: 50%;">Submit</button>
+                  <!-- <a href="" class="alert alert-success" style="width: 150px;">Submit</a> -->
+              </div>
+             </form>
+            
             
             </div>
             <div class="col">
-              <h1 class="alert alert-warning">Student Details</h1>
+              <h1 class="alert alert-warning text-center">Student Details</h1>
+              {%if data%}
               <table class="table table-hover mt-2">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">id</th>
+                    <th scope="col">Student_Name</th>
+                    <th scope="col">roll_no</th>
+                    <th scope="col">Class</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {%for i in data%}
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{i.id}}</th>
+                    <td>{{i.name}}</td>
+                    <td>{{i.roll}}</td>
+                    <td>{{i.class_name}}</td>
                     <td>
-                        <a href="" class="btn btn-outline-success">Update</a>
-                        <a href="" class="btn btn-outline-danger">Delete</a>
+                        <a href="{% url 'update' i.id %}" class="btn btn-outline-success">Update</a>
+                        <form action="{% url 'delete' i.id %}" method="post">
+                          {% csrf_token %}
+                          <input type="submit" value="Delete" class="btn btn-danger mt-2">
+                            <!-- <button class="btn btn-danger btn-sm">Delete</button> -->
+                      </form>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>
-                        <a href="" class="btn btn-outline-success">Update</a>
-                        <a href="" class="btn btn-outline-danger">Delete</a>
-                    </td>
-
-                  </tr>
+                  {%endfor%}
+                  
                 </tbody>
               </table>
+              {%else%}   
+              <h2 class="alert alert-danger text-center">No Record Found</h2>
+              {%endif%}
             </div>
           </div>
     </div>
