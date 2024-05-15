@@ -28,3 +28,7 @@ def userlogin(request):
                 return HttpResponseRedirect("/school/dashboard/")
     fm=Userloginform()
     return render(request,"loginform.html",{"form":fm})
+
+def userlogout(request):
+    logout(request)
+    return HttpResponseRedirect("/login/")
